@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="patryk.game.of.life.controller.MenuController">
+   <children>
+      <VBox alignment="CENTER" layoutX="866.0" prefHeight="700.0" prefWidth="233.0">
+         <children>
+            <VBox alignment="CENTER" prefHeight="56.0" prefWidth="233.0">
+               <children>
+                  <Label text="Wzór" />
+                  <ChoiceBox prefWidth="150.0" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </VBox>
+            <HBox alignment="CENTER" prefHeight="40.0" prefWidth="233.0">
+               <children>
+                  <Label text="Prędkosć">
+                     <padding>
+                        <Insets right="10.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Label>
+                  <TextField maxWidth="30.0" minWidth="10.0" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="22.0" prefWidth="233.0">
+               <children>
+                  <Label alignment="CENTER" text="Żywe komórki: " />
+                  <Label text="Label" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="106.0" prefHeight="25.0" prefWidth="233.0">
+               <children>
+                  <Label text="Martwe: " />
+                  <Label text="Label" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="46.0" prefWidth="233.0">
+               <children>
+                  <Button fx:id="startButton" mnemonicParsing="false" onAction="#start" text="Start">
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="stopButton" mnemonicParsing="false" onAction="#stop" text="Stop" />
+               </children>
+            </HBox>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </VBox>
+   </children>
+</Pane>
