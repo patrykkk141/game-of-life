@@ -5,11 +5,10 @@ import javafx.scene.shape.Rectangle;
 
 public class Cell extends Rectangle {
 
-    //kolory komórek
     private static final String ALIVE_COLOR = "#757575";
     private static final String DEAD_COLOR = "#e0e0e0";
 
-    public Cell(double v, double v1) {
+    Cell(double v, double v1) {
         super(v, v1, Paint.valueOf(DEAD_COLOR));
         isAlive = false;
     }

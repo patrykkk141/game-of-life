@@ -3,10 +3,15 @@ package patryk.game.of.life.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 
 public class MenuController {
+    private Game game;
 
-    private GameController gameController;
+    public MenuController() {
+    }
 
     @FXML
     private Button startButton;
@@ -15,16 +20,37 @@ public class MenuController {
     private Button stopButton;
 
     @FXML
-    void start(ActionEvent event){
-        gameController.play();
+    private ChoiceBox<?> pattern;
+
+    @FXML
+    private Slider speedSlider;
+
+    @FXML
+    private Label aliveCells;
+
+    @FXML
+    private Label deadCells;
+
+    @FXML
+    private void start(ActionEvent event){
+        startButton.setDisable(true);
+        stopButton.setDisable(false);
+        game.play();
     }
 
     @FXML
-    void stop(ActionEvent event) {
-
+    private void stop(ActionEvent event) {
+        startButton.setDisable(false);
+        stopButton.setDisable(true);
+        game.stop();
     }
 
-    public void setGameController(GameController gameController) {
-        this.gameController = gameController;
+    @FXML
+    private void initialize() {
+        stopButton.setDisable(true);
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
 }

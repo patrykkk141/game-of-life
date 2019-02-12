@@ -4,7 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
@@ -16,7 +16,7 @@
             <VBox alignment="CENTER" prefHeight="56.0" prefWidth="233.0">
                <children>
                   <Label text="Wzór" />
-                  <ChoiceBox prefWidth="150.0" />
+                  <ChoiceBox fx:id="pattern" prefWidth="150.0" />
                </children>
                <VBox.margin>
                   <Insets bottom="20.0" />
@@ -24,7 +24,7 @@
             </VBox>
             <HBox alignment="CENTER" prefHeight="40.0" prefWidth="233.0">
                <children>
-                  <Label text="Prędkosć">
+                  <Label text="Prędkość">
                      <padding>
                         <Insets right="10.0" />
                      </padding>
@@ -32,30 +32,52 @@
                         <Insets />
                      </HBox.margin>
                   </Label>
-                  <TextField maxWidth="30.0" minWidth="10.0" />
+                  <Slider fx:id="speedSlider" />
                </children>
                <VBox.margin>
                   <Insets bottom="20.0" />
                </VBox.margin>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="22.0" prefWidth="233.0">
+            <VBox alignment="CENTER" prefHeight="82.0" prefWidth="233.0">
                <children>
-                  <Label alignment="CENTER" text="Żywe komórki: " />
-                  <Label text="Label" />
+                  <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="233.0">
+                     <children>
+                        <Label text="Żywe komórki:" />
+                        <Label fx:id="aliveCells" text="0">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="52.0" prefWidth="233.0">
+                     <children>
+                        <Label text="Martwe Komórki:" />
+                        <Label fx:id="deadCells" text="0">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="233.0">
+                     <children>
+                        <Label text="Generacja:" />
+                        <Label fx:id="generation" text="0">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
                </children>
-               <VBox.margin>
-                  <Insets bottom="20.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox alignment="CENTER" layoutX="10.0" layoutY="106.0" prefHeight="25.0" prefWidth="233.0">
-               <children>
-                  <Label text="Martwe: " />
-                  <Label text="Label" />
-               </children>
-               <VBox.margin>
-                  <Insets bottom="20.0" />
-               </VBox.margin>
-            </HBox>
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
+            </VBox>
             <HBox alignment="CENTER" prefHeight="46.0" prefWidth="233.0">
                <children>
                   <Button fx:id="startButton" mnemonicParsing="false" onAction="#start" text="Start">
