@@ -7,10 +7,12 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 
-public class MenuController {
-    private Game game;
 
-    public MenuController() {
+public class MenuController {
+    private final Game game;
+
+    public MenuController(Game game) {
+        this.game = game;
     }
 
     @FXML
@@ -32,6 +34,9 @@ public class MenuController {
     private Label deadCells;
 
     @FXML
+    private Label generation;
+
+    @FXML
     private void start(ActionEvent event){
         startButton.setDisable(true);
         stopButton.setDisable(false);
@@ -48,9 +53,15 @@ public class MenuController {
     @FXML
     private void initialize() {
         stopButton.setDisable(true);
-    }
+        speedSlider.setMin(0);
+        speedSlider.setMax(900);
+        speedSlider.decrement();
+        speedSlider.valueProperty().addListener((observableValue, number, t1) -> {
+            game.setSpeed(Math.round((double)number));
+        });
 
-    public void setGame(Game game) {
-        this.game = game;
+        generation.textProperty().bind(game.generationCounterProperty().asString());
+        aliveCells.textProperty().bind(game.aliveCellsProperty().asString());
+        deadCells.textProperty().bind(game.deadCellsProperty().asString());
     }
 }

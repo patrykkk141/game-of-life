@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="patryk.game.of.life.controller.MenuController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox alignment="CENTER" layoutX="866.0" prefHeight="700.0" prefWidth="233.0">
          <children>
@@ -24,7 +24,7 @@
             </VBox>
             <HBox alignment="CENTER" prefHeight="40.0" prefWidth="233.0">
                <children>
-                  <Label text="Prędkość">
+                  <Label text="Prędkość:">
                      <padding>
                         <Insets right="10.0" />
                      </padding>

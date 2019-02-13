@@ -1,6 +1,10 @@
 package patryk.game.of.life.controller;
 
 import javafx.application.Platform;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.LongProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import patryk.game.of.life.model.Cell;
@@ -13,6 +17,10 @@ public class Game {
 
     private Board board;
     private boolean isPlaying = false;
+    private IntegerProperty aliveCells = new SimpleIntegerProperty(this, "aliveCells", 0);
+    private IntegerProperty deadCells = new SimpleIntegerProperty(this, "deadCells", Board.X_DIM * Board.Y_DIM);
+    private IntegerProperty generationCounter = new SimpleIntegerProperty(this, "generationCounter", 0);
+    private LongProperty speed = new SimpleLongProperty(this, "speed", 0);
 
     public Game(Board board) {
         this.board = board;
@@ -27,9 +35,16 @@ public class Game {
     }
 
     private void changeState(Cell cell) {
-        if (cell.isAlive())
+        if (cell.isAlive()) {
             cell.kill();
-        else cell.revive();
+            aliveCells.setValue(aliveCells.getValue() - 1);
+            deadCells.setValue(deadCells.getValue() + 1);
+        } else {
+            cell.revive();
+            aliveCells.setValue(aliveCells.getValue() + 1);
+            deadCells.setValue(deadCells.getValue() - 1);
+        }
+
     }
 
     private EventHandler<MouseEvent> changeCellState = e -> {
@@ -63,7 +78,7 @@ public class Game {
 
     void play() {
         isPlaying = true;
-        Runnable task = () -> getNewGeneration(500);
+        Runnable task = this::getNewGeneration;
 
         Thread backgroundThread = new Thread(task);
         backgroundThread.setDaemon(true);
@@ -74,7 +89,7 @@ public class Game {
         isPlaying = false;
     }
 
-    private void getNewGeneration(int delayInMillis) {
+    private void getNewGeneration() {
         while (isPlaying) {
             List<Cell> changeStateCells = new ArrayList<>();
             for (int i = 0; i < Board.X_DIM; i++) {
@@ -88,8 +103,11 @@ public class Game {
                 }
             }
             try {
-                Platform.runLater(() -> showNewGeneration(changeStateCells));
-                Thread.sleep(delayInMillis);
+                Platform.runLater(() -> {
+                    showNewGeneration(changeStateCells);
+                    generationCounter.setValue(generationCounter.getValue() + 1);
+                });
+                Thread.sleep(1000 - speed.getValue());
             } catch (InterruptedException e) {
                 System.out.println(e.getMessage());
             }
@@ -99,5 +117,21 @@ public class Game {
     private void showNewGeneration(List<Cell> cells) {
         for (Cell x : cells)
             changeState(x);
+    }
+
+    IntegerProperty generationCounterProperty() {
+        return generationCounter;
+    }
+
+    IntegerProperty aliveCellsProperty() {
+        return aliveCells;
+    }
+
+    IntegerProperty deadCellsProperty() {
+        return deadCells;
+    }
+
+    void setSpeed(long speed) {
+        this.speed.set(speed);
     }
 }

@@ -11,13 +11,16 @@ import patryk.game.of.life.controller.Game;
 import patryk.game.of.life.controller.MenuController;
 import patryk.game.of.life.model.Board;
 
+
 public class Main extends Application {
     private final Board board;
     private final Game game;
+    private final MenuController menuController;
 
     public Main() {
         board = new Board(50, 40);
         game = new Game(board);
+        menuController = new MenuController(game);
     }
 
 
@@ -26,6 +29,7 @@ public class Main extends Application {
         //Pobranie widoku
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/fxml/main.fxml"));
+        loader.setController(menuController);
         Pane root = loader.load();
 
         GridPane gridPane = new GridPane();
@@ -40,14 +44,14 @@ public class Main extends Application {
             }
         }
 
-        MenuController menuController = loader.getController();
-        menuController.setGame(game);
+        /*MenuController menuController = loader.getController();
+        menuController.setGame(game);*/
         root.getChildren().add(gridPane);
 
         Scene scene = new Scene(root);
 
         primaryStage.setTitle("Game of life, version 0.01");
-        primaryStage.setResizable(false);
+        primaryStage.setResizable(true);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
