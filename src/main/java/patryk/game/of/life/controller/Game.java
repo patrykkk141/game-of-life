@@ -16,7 +16,7 @@ import java.util.List;
 public class Game {
 
     private Board board;
-    private boolean isPlaying = false;
+    private boolean isPlaying;
     private IntegerProperty aliveCells;
     private IntegerProperty deadCells;
     private IntegerProperty generationCounter;
@@ -25,6 +25,7 @@ public class Game {
     public Game(Board board) {
         this.board = board;
 
+        isPlaying = false;
         aliveCells = new SimpleIntegerProperty(this, "aliveCells", 0);
         deadCells = new SimpleIntegerProperty(this, "deadCells", Board.X_DIM * Board.Y_DIM);
         generationCounter = new SimpleIntegerProperty(this, "generationCounter", 0);
@@ -43,24 +44,29 @@ public class Game {
     private void changeState(Cell cell) {
         if (cell.isAlive()) {
             cell.kill();
-            updateCellsCounters(aliveCells.getValue() - 1, deadCells.getValue() + 1);
+            updateCellCountersAtKill();
         } else {
             cell.revive();
-            updateCellsCounters(aliveCells.getValue() + 1, deadCells.getValue() - 1);
+            updateCellCountersAtRevive();
         }
-
     }
 
-    private void updateCellsCounters(int alive, int dead) {
-        aliveCells.setValue(alive);
-        deadCells.setValue(dead);
+     void updateCellCountersAtKill() {
+        aliveCells.setValue(aliveCells.getValue() - 1);
+        deadCells.setValue(deadCells.getValue() + 1);
     }
+
+     void updateCellCountersAtRevive() {
+        aliveCells.setValue(aliveCells.getValue() + 1);
+        deadCells.setValue(deadCells.getValue() - 1);
+    }
+
 
     private EventHandler<MouseEvent> changeCellState = e -> {
         changeState((Cell) e.getSource());
     };
 
-    private int getNumberOfAliveNeighbour(Cell cell, int x_pkt, int y_pkt) {
+    int getNumberOfAliveNeighbour(int x_pkt, int y_pkt) {
         int result = 0;
 
         for (int i = x_pkt - 1, c1 = 0; c1 < 3; c1++, i++) {
@@ -98,13 +104,13 @@ public class Game {
         isPlaying = false;
     }
 
-    private void getNewGeneration() {
+    void getNewGeneration() {
         while (isPlaying) {
             List<Cell> changeStateCells = new ArrayList<>();
             for (int i = 0; i < Board.X_DIM; i++) {
                 for (int j = 0; j < Board.Y_DIM; j++) {
                     Cell cell = board.getCells().get(i).get(j);
-                    int aliveNeighbours = getNumberOfAliveNeighbour(cell, i, j);
+                    int aliveNeighbours = getNumberOfAliveNeighbour(i, j);
                     if (!cell.isAlive() && aliveNeighbours == 3)
                         changeStateCells.add(cell);
                     if (cell.isAlive() && (aliveNeighbours < 2 || aliveNeighbours > 3))
@@ -123,7 +129,7 @@ public class Game {
         }
     }
 
-    private void showNewGeneration(List<Cell> cells) {
+    void showNewGeneration(List<Cell> cells) {
         for (Cell x : cells)
             changeState(x);
     }

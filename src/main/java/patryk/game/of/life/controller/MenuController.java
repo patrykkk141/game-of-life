@@ -37,27 +37,27 @@ public class MenuController {
     private Label generation;
 
     @FXML
-    private void start(ActionEvent event){
+    void start(ActionEvent event) {
         startButton.setDisable(true);
         stopButton.setDisable(false);
         game.play();
     }
 
     @FXML
-    private void stop(ActionEvent event) {
+    void stop(ActionEvent event) {
         startButton.setDisable(false);
         stopButton.setDisable(true);
         game.stop();
     }
 
     @FXML
-    private void initialize() {
+    void initialize() {
         stopButton.setDisable(true);
         speedSlider.setMin(0);
         speedSlider.setMax(900);
         speedSlider.decrement();
         speedSlider.valueProperty().addListener((observableValue, number, t1) -> {
-            game.setSpeed(Math.round((double)number));
+            game.setSpeed(Math.round((double) number));
         });
 
         generation.textProperty().bind(game.generationCounterProperty().asString());
