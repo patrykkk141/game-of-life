@@ -17,13 +17,19 @@ public class Game {
 
     private Board board;
     private boolean isPlaying = false;
-    private IntegerProperty aliveCells = new SimpleIntegerProperty(this, "aliveCells", 0);
-    private IntegerProperty deadCells = new SimpleIntegerProperty(this, "deadCells", Board.X_DIM * Board.Y_DIM);
-    private IntegerProperty generationCounter = new SimpleIntegerProperty(this, "generationCounter", 0);
-    private LongProperty speed = new SimpleLongProperty(this, "speed", 0);
+    private IntegerProperty aliveCells;
+    private IntegerProperty deadCells;
+    private IntegerProperty generationCounter;
+    private LongProperty speed;
 
     public Game(Board board) {
         this.board = board;
+
+        aliveCells = new SimpleIntegerProperty(this, "aliveCells", 0);
+        deadCells = new SimpleIntegerProperty(this, "deadCells", Board.X_DIM * Board.Y_DIM);
+        generationCounter = new SimpleIntegerProperty(this, "generationCounter", 0);
+        speed = new SimpleLongProperty(this, "speed", 0);
+
         setMouseEvent();
     }
 
@@ -37,14 +43,17 @@ public class Game {
     private void changeState(Cell cell) {
         if (cell.isAlive()) {
             cell.kill();
-            aliveCells.setValue(aliveCells.getValue() - 1);
-            deadCells.setValue(deadCells.getValue() + 1);
+            updateCellsCounters(aliveCells.getValue() - 1, deadCells.getValue() + 1);
         } else {
             cell.revive();
-            aliveCells.setValue(aliveCells.getValue() + 1);
-            deadCells.setValue(deadCells.getValue() - 1);
+            updateCellsCounters(aliveCells.getValue() + 1, deadCells.getValue() - 1);
         }
 
+    }
+
+    private void updateCellsCounters(int alive, int dead) {
+        aliveCells.setValue(alive);
+        deadCells.setValue(dead);
     }
 
     private EventHandler<MouseEvent> changeCellState = e -> {
