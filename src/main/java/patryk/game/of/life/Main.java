@@ -44,8 +44,6 @@ public class Main extends Application {
             }
         }
 
-        /*MenuController menuController = loader.getController();
-        menuController.setGame(game);*/
         root.getChildren().add(gridPane);
 
         Scene scene = new Scene(root);
