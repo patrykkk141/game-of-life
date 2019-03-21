@@ -36,6 +36,7 @@
     </dependencies>
 
     <build>
+        <finalName>game-of-life</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -50,7 +51,7 @@
                             <archive>
                                 <manifest>
                                     <mainClass>
-                                       patryk.game.of.life.Main
+                                        patryk.game.of.life.Main
                                     </mainClass>
                                 </manifest>
                             </archive>
